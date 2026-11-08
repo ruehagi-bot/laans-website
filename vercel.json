@@ -2,9 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "env": {
-    "NOTION_TOKEN": "@notion-token",
-    "NOTION_REPORTS_DB_ID": "@notion-reports-db-id"
-  }
+  "installCommand": "npm install"
 }

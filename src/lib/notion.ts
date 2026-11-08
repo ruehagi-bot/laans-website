@@ -96,7 +96,7 @@ function pageToReport(page: PageObjectResponse): Report {
 
 /** All published reports, newest first */
 export async function getPublishedReports(): Promise<Report[]> {
-  if (!process.env.CMS_API_KEY ?? process.env.NOTION_TOKEN) return [];
+  if (!process.env.CMS_API_KEY && !process.env.NOTION_TOKEN) return [];
 
   try {
     const res = await notion.databases.query({
@@ -118,7 +118,7 @@ export async function getPublishedReports(): Promise<Report[]> {
 export async function getReportBySlug(
   slug: string
 ): Promise<Report | null> {
-  if (!process.env.CMS_API_KEY ?? process.env.NOTION_TOKEN) return null;
+  if (!process.env.CMS_API_KEY && !process.env.NOTION_TOKEN) return null;
 
   try {
     const res = await notion.databases.query({

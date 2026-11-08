@@ -15,11 +15,6 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 export const REPORTS_DB_ID =
   process.env.NOTION_REPORTS_DB_ID ?? "0d030d1e-b838-45d3-a7c4-50a92d07e312";
 
-// This client uses dataSources.query() rather than databases.query()
-// (Notion MCP-flavoured SDK)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ds = (notion as any).dataSources;
-
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -101,37 +96,49 @@ function pageToReport(page: PageObjectResponse): Report {
 
 /** All published reports, newest first */
 export async function getPublishedReports(): Promise<Report[]> {
-  const res = await ds.query({
-    database_id: REPORTS_DB_ID,
-    filter: {
-      property: "Status",
-      status: { equals: "Published" },
-    },
-    sorts: [{ property: "Published", direction: "descending" }],
-  });
+  if (!process.env.NOTION_TOKEN) return [];
 
-  return (res.results as PageObjectResponse[]).map(pageToReport);
+  try {
+    const res = await notion.databases.query({
+      database_id: REPORTS_DB_ID,
+      filter: {
+        property: "Status",
+        status: { equals: "Published" },
+      },
+      sorts: [{ property: "Published", direction: "descending" }],
+    });
+
+    return (res.results as PageObjectResponse[]).map(pageToReport);
+  } catch {
+    return [];
+  }
 }
 
 /** Single report by slug — returns excerpt + pdfUrl; no full markdown */
 export async function getReportBySlug(
   slug: string
 ): Promise<Report | null> {
-  const res = await ds.query({
-    database_id: REPORTS_DB_ID,
-    filter: {
-      and: [
-        { property: "Slug", rich_text: { equals: slug } },
-        { property: "Status", status: { equals: "Published" } },
-      ],
-    },
-    page_size: 1,
-  });
+  if (!process.env.NOTION_TOKEN) return null;
 
-  if (!res.results.length) return null;
+  try {
+    const res = await notion.databases.query({
+      database_id: REPORTS_DB_ID,
+      filter: {
+        and: [
+          { property: "Slug", rich_text: { equals: slug } },
+          { property: "Status", status: { equals: "Published" } },
+        ],
+      },
+      page_size: 1,
+    });
 
-  const page = res.results[0] as PageObjectResponse;
-  return pageToReport(page);
+    if (!res.results.length) return null;
+
+    const page = res.results[0] as PageObjectResponse;
+    return pageToReport(page);
+  } catch {
+    return null;
+  }
 }
 
 /**

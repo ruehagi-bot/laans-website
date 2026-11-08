@@ -84,7 +84,7 @@ export default function AboutPage() {
                 with the resources available and deliver results that last.
               </p>
               <p>
-                Our goal is simple: to prevent tomorrow's crises today and build
+                Our goal is simple: to prevent tomorrow&apos;s crises today and build
                 institutions strong enough to stand on their own.
               </p>
             </div>

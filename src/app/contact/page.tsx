@@ -57,7 +57,7 @@ export default function ContactPage() {
     challenge: "",
   });
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [_submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
   function update(field: keyof FormData, value: string) {

@@ -13,7 +13,7 @@ export default async function Home() {
     // Notion env vars not set yet (local dev without .env.local)
   }
 
-  const latest = reports[0] ?? null;
+  const _latest = reports[0] ?? null;
 
   return (
     <>

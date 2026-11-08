@@ -2,10 +2,6 @@ import { Client } from "@notionhq/client";
 import { NotionToMarkdown } from "notion-to-md";
 import type { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
-// ---------------------------------------------------------------------------
-// Client setup
-// ---------------------------------------------------------------------------
-
 const notion = new Client({
   auth: process.env.CMS_API_KEY ?? process.env.NOTION_TOKEN,
 });
@@ -15,35 +11,23 @@ const n2m = new NotionToMarkdown({ notionClient: notion });
 export const REPORTS_DB_ID =
   process.env.NOTION_REPORTS_DB_ID ?? "0d030d1e-b838-45d3-a7c4-50a92d07e312";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 export interface Report {
   id: string;
   title: string;
   slug: string;
-  /** Short excerpt shown on the website (2–4 sentences). Full text is PDF-only. */
   excerpt: string;
   publishedAt: string | null;
   topics: string[];
   readingTime: number | null;
   status: string;
   notionUrl: string;
-  /** Direct URL to the watermarked PDF (stored in Notion "PDF URL" field). */
   pdfUrl: string | null;
-  /** Author name (stored in Notion "Author" text field). */
   author: string | null;
 }
 
 export interface ReportWithMarkdown extends Report {
-  /** Full Notion page content as Markdown — used only by the PDF generator, never rendered on the site. */
   markdown: string;
 }
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 function extractText(
   prop: PageObjectResponse["properties"][string]
@@ -90,14 +74,8 @@ function pageToReport(page: PageObjectResponse): Report {
   };
 }
 
-// ---------------------------------------------------------------------------
-// Queries
-// ---------------------------------------------------------------------------
-
-/** All published reports, newest first */
 export async function getPublishedReports(): Promise<Report[]> {
   if (!process.env.CMS_API_KEY && !process.env.NOTION_TOKEN) return [];
-
   try {
     const res = await notion.databases.query({
       database_id: REPORTS_DB_ID,
@@ -107,19 +85,14 @@ export async function getPublishedReports(): Promise<Report[]> {
       },
       sorts: [{ property: "Published", direction: "descending" }],
     });
-
     return (res.results as PageObjectResponse[]).map(pageToReport);
   } catch {
     return [];
   }
 }
 
-/** Single report by slug — returns excerpt + pdfUrl; no full markdown */
-export async function getReportBySlug(
-  slug: string
-): Promise<Report | null> {
+export async function getReportBySlug(slug: string): Promise<Report | null> {
   if (!process.env.CMS_API_KEY && !process.env.NOTION_TOKEN) return null;
-
   try {
     const res = await notion.databases.query({
       database_id: REPORTS_DB_ID,
@@ -131,29 +104,18 @@ export async function getReportBySlug(
       },
       page_size: 1,
     });
-
     if (!res.results.length) return null;
-
-    const page = res.results[0] as PageObjectResponse;
-    return pageToReport(page);
+    return pageToReport(res.results[0] as PageObjectResponse);
   } catch {
     return null;
   }
 }
 
-/**
- * Fetch full Notion page content as Markdown.
- * Used ONLY by the offline PDF generator (scripts/generate-pdf.ts).
- * Never call this from a Next.js page or component.
- */
-export async function getReportMarkdown(
-  pageId: string
-): Promise<string> {
+export async function getReportMarkdown(pageId: string): Promise<string> {
   const mdBlocks = await n2m.pageToMarkdown(pageId);
   return n2m.toMarkdownString(mdBlocks).parent;
 }
 
-/** All slugs (for generateStaticParams) */
 export async function getAllReportSlugs(): Promise<string[]> {
   const reports = await getPublishedReports();
   return reports.map((r) => r.slug).filter(Boolean);

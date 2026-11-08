@@ -10,10 +10,10 @@ export default function Nav() {
           <Image
             src="/laans-logo.png"
             alt="LAANS Consulting"
-            width={110}
-            height={65}
+            width={180}
+            height={106}
             priority
-            className="h-9 w-auto object-contain"
+            className="h-14 w-auto object-contain"
           />
         </Link>
 

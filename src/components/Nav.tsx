@@ -1,20 +1,17 @@
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Nav() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-stone-200">
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/laans-logo.png"
-            alt="LAANS Consulting"
-            width={180}
-            height={106}
-            priority
-            className="h-14 w-auto object-contain"
-          />
+        <Link href="/" className="flex items-center gap-3">
+          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "2rem", letterSpacing: "0.08em", color: "#1a1a1a" }}>
+            LAANS
+          </span>
+          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "2rem", letterSpacing: "0.08em", color: "#5a5a5a", textTransform: "uppercase" }}>
+            Consulting
+          </span>
         </Link>
 
         {/* Nav links */}

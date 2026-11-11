@@ -6,10 +6,10 @@ export default function Nav() {
       <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "2rem", letterSpacing: "0.08em", color: "#1a1a1a" }}>
+          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "1rem", letterSpacing: "0.08em", color: "#1a1a1a" }}>
             LAANS
           </span>
-          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "2rem", letterSpacing: "0.08em", color: "#5a5a5a", textTransform: "uppercase" }}>
+          <span style={{ fontFamily: "var(--font-gloock)", fontSize: "1rem", letterSpacing: "0.08em", color: "#5a5a5a", textTransform: "uppercase" }}>
             Consulting
           </span>
         </Link>

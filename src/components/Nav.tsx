@@ -13,19 +13,19 @@ export default function Nav() {
         <div style={{ height: "5px", backgroundColor: "#1a1a1a" }} />
 
         <header style={{ backgroundColor: "#fff" }}>
-          <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="max-w-5xl mx-auto px-10 h-22 flex items-center justify-between" style={{ height: "88px", paddingLeft: "40px", paddingRight: "40px" }}>
             <Link href="/" style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1, textDecoration: "none" }} onClick={() => setOpen(false)}>
-              <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2rem", letterSpacing: "0.04em", color: "#1a1a1a", lineHeight: 1 }}>LAANS</span>
-              <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "0.6rem", letterSpacing: "0.3em", color: "#5a5a5a", textTransform: "uppercase", marginTop: "2px" }}>Consulting</span>
+              <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2.75rem", letterSpacing: "0.04em", color: "#1a1a1a", lineHeight: 1 }}>LAANS</span>
+              <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "0.75rem", letterSpacing: "0.3em", color: "#5a5a5a", textTransform: "uppercase", marginTop: "3px" }}>Consulting</span>
             </Link>
             <button
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
-              style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "5px", width: "32px", height: "32px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
+              style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: "7px", width: "48px", height: "48px", background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
-              <span style={{ display: "block", width: "24px", height: "1.5px", backgroundColor: "#1a1a1a" }} />
-              <span style={{ display: "block", width: "24px", height: "1.5px", backgroundColor: "#1a1a1a" }} />
-              <span style={{ display: "block", width: "24px", height: "1.5px", backgroundColor: "#1a1a1a" }} />
+              <span style={{ display: "block", width: "34px", height: "2px", backgroundColor: "#1a1a1a" }} />
+              <span style={{ display: "block", width: "34px", height: "2px", backgroundColor: "#1a1a1a" }} />
+              <span style={{ display: "block", width: "34px", height: "2px", backgroundColor: "#1a1a1a" }} />
             </button>
           </div>
         </header>
@@ -37,7 +37,7 @@ export default function Nav() {
 
         {open && (
           <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #e7e5e4" }}>
-            <nav className="max-w-5xl mx-auto px-6 py-4 flex flex-col gap-4">
+            <nav className="max-w-5xl mx-auto px-10 py-4 flex flex-col gap-4" style={{ paddingLeft: "40px", paddingRight: "40px" }}>
               <Link href="/reports" className="text-sm text-stone-600 hover:text-black transition-colors" onClick={() => setOpen(false)}>Reports</Link>
               <Link href="/about" className="text-sm text-stone-600 hover:text-black transition-colors" onClick={() => setOpen(false)}>About</Link>
               <Link href="/contact" className="text-sm font-medium text-black hover:text-stone-600 transition-colors" onClick={() => setOpen(false)}>Contact us</Link>

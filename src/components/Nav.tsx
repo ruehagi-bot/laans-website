@@ -13,7 +13,7 @@ export default function Nav() {
         <div style={{ height: "5px", backgroundColor: "#1a1a1a" }} />
 
         <header style={{ backgroundColor: "#fff" }}>
-          <div className="max-w-5xl mx-auto px-10 h-22 flex items-center justify-between" style={{ height: "88px", paddingLeft: "40px", paddingRight: "40px" }}>
+          <div className="max-w-5xl mx-auto px-10 h-22 flex items-center justify-between" style={{ height: "88px", paddingLeft: "16px", paddingRight: "16px" }}>
             <Link href="/" style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1, textDecoration: "none" }} onClick={() => setOpen(false)}>
               <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2.75rem", letterSpacing: "0.04em", color: "#1a1a1a", lineHeight: 1 }}>LAANS</span>
               <span style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "0.75rem", letterSpacing: "0.3em", color: "#5a5a5a", textTransform: "uppercase", marginTop: "3px" }}>Consulting</span>
@@ -36,11 +36,11 @@ export default function Nav() {
         <div style={{ height: "2px", backgroundColor: "#1a1a1a", opacity: 0.4 }} />
 
         {open && (
-          <div style={{ backgroundColor: "#fff", borderBottom: "1px solid #e7e5e4" }}>
-            <nav className="max-w-5xl mx-auto px-10 py-4 flex flex-col gap-4" style={{ paddingLeft: "40px", paddingRight: "40px" }}>
-              <Link href="/reports" className="text-sm text-stone-600 hover:text-black transition-colors" onClick={() => setOpen(false)}>Reports</Link>
-              <Link href="/about" className="text-sm text-stone-600 hover:text-black transition-colors" onClick={() => setOpen(false)}>About</Link>
-              <Link href="/contact" className="text-sm font-medium text-black hover:text-stone-600 transition-colors" onClick={() => setOpen(false)}>Contact us</Link>
+          <div style={{ backgroundColor: "#fff" }}>
+            <nav style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "36px", padding: "60px 24px" }}>
+              <Link href="/reports" onClick={() => setOpen(false)} style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2rem", color: "#1a1a1a", textDecoration: "none" }}>Reports</Link>
+              <Link href="/about" onClick={() => setOpen(false)} style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2rem", color: "#1a1a1a", textDecoration: "none" }}>About</Link>
+              <Link href="/contact" onClick={() => setOpen(false)} style={{ fontFamily: "'Gloock', Georgia, serif", fontSize: "2rem", color: "#1a1a1a", textDecoration: "none" }}>Contact us</Link>
             </nav>
           </div>
         )}
